@@ -1,0 +1,10 @@
+---
+# yum variables can be checked using this command:
+#   $ python -c 'import yum, pprint; yb = yum.YumBase(); pprint.pprint(yb.conf.yumvar, width=1)'
+
+nginx_gpgkey_url:        "file:///vagrant/repofile/RPM-GPG_KEY-nginx"
+nginx_repo:
+  Nginx:
+    file: nginx
+    enabled: "{{ nginx_enabled }}"
+    baseurl: "file:///vagrant/repo/nginx/"

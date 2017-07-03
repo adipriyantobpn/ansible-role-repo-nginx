@@ -1,2 +1,27 @@
 ---
 # tasks file for adipriyantobpn.repo-nginx
+- block:
+
+  - name: include yum repository variable file
+    include_vars: "repo-{{ repo_location }}.yml"
+
+  - name: import Nginx GPG key
+    rpm_key:
+      key: "{{ nginx_gpgkey_url.replace('file://', '') }}"
+      state: present
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: configure Nginx yum repository
+    yum_repository:
+      name: "{{ item.key.lower() }}"
+      description: "Nginx for CentOS $releasever - $basearch"
+      mirrorlist: "{{ item.value.mirrorlist | default(omit) }}"
+      failovermethod: priority
+      baseurl: "{{ item.value.baseurl | default(omit) }}"
+      gpgkey: "{{ nginx_gpgkey_url }}"
+      gpgcheck: yes
+      enabled: "{{ item.value.enabled }}"
+      file: "{{ item.value.file }}"
+      state: present
+    with_dict: "{{ nginx_repo }}"
+  become: True

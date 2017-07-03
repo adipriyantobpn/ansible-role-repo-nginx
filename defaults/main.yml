@@ -1,2 +1,5 @@
 ---
 # defaults file for adipriyantobpn.repo-nginx
+
+repo_location:              international   # available options: international, vagrant
+nginx_enabled:              yes
