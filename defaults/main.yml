@@ -2,4 +2,5 @@
 # defaults file for adipriyantobpn.repo-nginx
 
 repo_location:              international   # available options: international, vagrant
+vagrant_repo_base_dir:      "file:///vagrantshare/repo/"
 nginx_enabled:              yes
